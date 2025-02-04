@@ -5,7 +5,7 @@ export ZSH="/Users/bhavika/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="cloud"
+ZSH_THEME="pygmalion"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -31,13 +31,8 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR="vim"
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-
 alias zshconfig="open -e ~/.zshrc"
 alias zprofile="open -e ~/.zprofile"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
@@ -50,12 +45,6 @@ function ver {
 }
 
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-
-# cloudplatform: add Shopify clusters to your local kubernetes config
-export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/bhavika/.kube/config:/Users/bhavika/.kube/config.shopify.cloudplatform
-[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
-for file in /Users/bhavika/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
-kubectl-short-aliases
 
 eval "$(starship init zsh)"
 
@@ -72,24 +61,6 @@ function clean_local_branches {
 
 alias k=kubectl
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/bhavika/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/bhavika/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/bhavika/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/bhavika/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/Users/bhavika/miniconda3/etc/profile.d/mamba.sh" ]; then
-    . "/Users/bhavika/miniconda3/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -117,3 +88,17 @@ setopt HIST_REDUCE_BLANKS    # Remove superfluous blanks from each command line 
 export PATH="$PATH:/Users/bhavika/.local/bin"
 alias uvenv="source .venv/bin/activate"
 alias uvset="uv pip install -r requirements.txt"
+alias code='open -a "Cursor"'
+
+
+# cloudplatform: add Shopify clusters to your local kubernetes config
+export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/bhavika/.kube/config:/Users/bhavika/.kube/config.shopify.cloudplatform
+
+function mdget {
+	#!/bin/bash
+	curl https://r.jina.ai/$*
+}
+
+eval "$(zoxide init zsh)"
+
+alias pqt=parquet-tools
